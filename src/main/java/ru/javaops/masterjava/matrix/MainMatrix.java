@@ -10,9 +10,9 @@ import java.util.concurrent.Executors;
  */
 public class MainMatrix {
     private static final int MATRIX_SIZE = 1000;
-    private static final int THREAD_NUMBER = 10;
+    private static final int THREAD_NUMBER = 24;
 
-    private final static ExecutorService executor = Executors.newFixedThreadPool(MainMatrix.THREAD_NUMBER);
+    private static ExecutorService executor;
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         final int[][] matrixA = MatrixUtil.create(MATRIX_SIZE);
@@ -29,19 +29,21 @@ public class MainMatrix {
             out("Single thread time, sec: %.3f", duration);
             singleThreadSum += duration;
 
+            executor = Executors.newFixedThreadPool(MainMatrix.THREAD_NUMBER);
             start = System.currentTimeMillis();
             final int[][] concurrentMatrixC = MatrixUtil.concurrentMultiply(matrixA, matrixB, executor);
             duration = (System.currentTimeMillis() - start) / 1000.;
             out("Concurrent thread time, sec: %.3f", duration);
+            executor.shutdown();
+            while (!executor.isTerminated()) {}
             concurrentThreadSum += duration;
-
             if (!MatrixUtil.compare(matrixC, concurrentMatrixC)) {
                 System.err.println("Comparison failed");
                 break;
             }
             count++;
         }
-        executor.shutdown();
+        //executor.shutdown();
         out("\nAverage single thread time, sec: %.3f", singleThreadSum / 5.);
         out("Average concurrent thread time, sec: %.3f", concurrentThreadSum / 5.);
     }
