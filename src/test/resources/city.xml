@@ -1,0 +1,4 @@
+<City id="spb" xmlns="http://vorobyev.masterjava.ru"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://vorobyev.masterjava.ru payload.xsd">Санкт-Петербург
+</City>
