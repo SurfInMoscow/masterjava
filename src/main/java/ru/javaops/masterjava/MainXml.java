@@ -1,9 +1,7 @@
 package ru.javaops.masterjava;
 
 import com.google.common.io.Resources;
-import ru.javaops.masterjava.xml.schema.ObjectFactory;
-import ru.javaops.masterjava.xml.schema.Payload;
-import ru.javaops.masterjava.xml.schema.User;
+import ru.javaops.masterjava.xml.schema.*;
 import ru.javaops.masterjava.xml.util.JaxbParser;
 import ru.javaops.masterjava.xml.util.Schemas;
 import ru.javaops.masterjava.xml.util.StaxStreamProcessor;
@@ -15,9 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MainXml {
@@ -28,15 +24,12 @@ public class MainXml {
         Payload payload = JAXB_PARSER.unmarshal(
                 Resources.getResource("payload.xml").openStream());
         List<User> users = payload.getUsers().getUser();
-        List<User> usersInProject = new ArrayList<>();
-        users.forEach(user -> {
-            user.getGroups().getGroup().forEach(group -> {
-                if (group.getName().equals(projectName)) usersInProject.add(user);
-            });
-        });
-        return usersInProject.stream().sorted(Comparator.comparing(User::getFullName)).collect(Collectors.toList());
+        Project project = payload.getProjects().getProject().stream().filter(p -> p.getName().equals(projectName)).findAny().get();
+        Set<Group> groups = new HashSet<>(project.getGroup());
+        return users.stream().filter(user -> !Collections.disjoint(groups, user.getGroupRefs())).sorted(Comparator.comparing(User::getValue)).collect(Collectors.toList());
     }
 
+    //TODO
     public static void staxProcessorUsersInGroups(String projectName) {
         try (StaxStreamProcessor processor =
                      new StaxStreamProcessor(Resources.getResource("payload.xml").openStream())) {
@@ -52,8 +45,9 @@ public class MainXml {
         }
     }
 
+    //TODO
     public static void main(String[] args) throws IOException, JAXBException, URISyntaxException {
-        String projectName = "masterjava1";
+        String projectName = "masterjava";
         StringBuilder builder = new StringBuilder();
         builder.append("<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -73,7 +67,7 @@ public class MainXml {
                 "  </tr>\n");
 
         usersInProject(projectName).forEach(user -> builder.append(String.format("<tr>\n" + "    <td>%s</td>\n" +
-                        "    <td>%s</td>\n" + "</tr>\n", user.getFullName(), user.getEmail())));
+                        "    <td>%s</td>\n" + "</tr>\n", user.getValue(), user.getEmail())));
         builder.append("</table>\n" +
                 "\n" +
                 "</body>\n" +

@@ -1,83 +1,29 @@
 <Payload xmlns="http://vorobyev.masterjava.ru"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://vorobyev.masterjava.ru payload.xsd">
-    <Users>
-        <User flag="active" email="gmail@gmail.com" city="kiv">
-            <fullName>Full Name</fullName>
-            <Groups>
-                <Group>
-                    <name>masterjava1</name>
-                    <type>CURRENT</type>
-                </Group>
-            </Groups>
-        </User>
-        <User flag="superuser" email="admin@javaops.ru" city="spb">
-            <fullName>Admin</fullName>
-            <Groups>
-                <Group>
-                    <name>topjava1</name>
-                    <type>CURRENT</type>
-                </Group>
-                <Group>
-                    <name>topjava2</name>
-                    <type>REGISTERING</type>
-                </Group>
-                <Group>
-                    <name>masterjava1</name>
-                    <type>CURRENT</type>
-                </Group>
-                <Group>
-                    <name>basejava1</name>
-                    <type>FINISHED</type>
-                </Group>
-            </Groups>
-        </User>
-        <User flag="deleted" email="mail@yandex.ru" city="spb">
-            <fullName>Deleted</fullName>
-            <Groups/>
-        </User>
-    </Users>
-
+    <Projects>
+        <Project name="topjava">
+            <description>knowledge for middle developer</description>
+            <Group name="topjava1" type="CURRENT"/>
+            <Group name="topjava2" type="REGISTERING"/>
+        </Project>
+        <Project name="masterjava">
+            <description>knowledge for senior developer</description>
+            <Group name="masterjava1" type="CURRENT"/>
+        </Project>
+        <Project name="basejava">
+            <description>knowledge for junior developer</description>
+            <Group name="basejava1" type="FINISHED"/>
+        </Project>
+    </Projects>
     <Cities>
         <City id="spb">Санкт-Петербург</City>
         <City id="kiv">Киев</City>
         <City id="mnsk">Минск</City>
     </Cities>
-
-    <Projects>
-        <Project>
-            <name>topjava</name>
-            <description>knowledge for middle developer</description>
-            <Groups>
-                <Group>
-                    <name>topjava1</name>
-                    <type>CURRENT</type>
-                </Group>
-                <Group>
-                    <name>topjava2</name>
-                    <type>REGISTERING</type>
-                </Group>
-            </Groups>
-        </Project>
-        <Project>
-            <name>masterjava</name>
-            <description>knowledge for senior developer</description>
-            <Groups>
-                <Group>
-                    <name>masterjava1</name>
-                    <type>CURRENT</type>
-                </Group>
-            </Groups>
-        </Project>
-        <Project>
-            <name>basejava</name>
-            <description>knowledge for junior developer</description>
-            <Groups>
-                <Group>
-                    <name>basejava1</name>
-                    <type>FINISHED</type>
-                </Group>
-            </Groups>
-        </Project>
-    </Projects>
+    <Users>
+        <User flag="active" email="gmail@gmail.com" city="kiv" groupRefs="masterjava1">Full Name</User>
+        <User flag="superuser" email="admin@javaops.ru" city="spb" groupRefs="topjava1 topjava2 masterjava1 basejava1">Admin</User>
+        <User flag="deleted" email="mail@yandex.ru" city="spb">Deleted</User>
+    </Users>
 </Payload>

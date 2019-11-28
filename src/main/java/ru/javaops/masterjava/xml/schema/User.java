@@ -6,11 +6,11 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.XmlValue;
 
 
 /**
@@ -20,27 +20,14 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * <pre>
  * &lt;complexType>
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="fullName" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="Groups">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *                   &lt;element ref="{http://vorobyev.masterjava.ru}Group"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/sequence>
+ *   &lt;simpleContent>
+ *     &lt;extension base="&lt;http://www.w3.org/2001/XMLSchema>string">
  *       &lt;attribute name="flag" use="required" type="{http://vorobyev.masterjava.ru}flagType" />
- *       &lt;attribute name="email" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="email" use="required" type="{http://vorobyev.masterjava.ru}emailType" />
  *       &lt;attribute name="city" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
- *     &lt;/restriction>
- *   &lt;/complexContent>
+ *       &lt;attribute name="groupRefs" type="{http://www.w3.org/2001/XMLSchema}IDREFS" />
+ *     &lt;/extension>
+ *   &lt;/simpleContent>
  * &lt;/complexType>
  * </pre>
  * 
@@ -48,16 +35,13 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "fullName",
-    "groups"
+    "value"
 })
 @XmlRootElement(name = "User", namespace = "http://vorobyev.masterjava.ru")
 public class User {
 
-    @XmlElement(namespace = "http://vorobyev.masterjava.ru", required = true)
-    protected String fullName;
-    @XmlElement(name = "Groups", namespace = "http://vorobyev.masterjava.ru", required = true)
-    protected User.Groups groups;
+    @XmlValue
+    protected String value;
     @XmlAttribute(name = "flag", required = true)
     protected FlagType flag;
     @XmlAttribute(name = "email", required = true)
@@ -66,53 +50,33 @@ public class User {
     @XmlIDREF
     @XmlSchemaType(name = "IDREF")
     protected Object city;
+    @XmlAttribute(name = "groupRefs")
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREFS")
+    protected List<Object> groupRefs;
 
     /**
-     * Gets the value of the fullName property.
+     * Gets the value of the value property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getFullName() {
-        return fullName;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * Sets the value of the fullName property.
+     * Sets the value of the value property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setFullName(String value) {
-        this.fullName = value;
-    }
-
-    /**
-     * Gets the value of the groups property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link User.Groups }
-     *     
-     */
-    public User.Groups getGroups() {
-        return groups;
-    }
-
-    /**
-     * Sets the value of the groups property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link User.Groups }
-     *     
-     */
-    public void setGroups(User.Groups value) {
-        this.groups = value;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     /**
@@ -187,64 +151,33 @@ public class User {
         this.city = value;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
+     * Gets the value of the groupRefs property.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the groupRefs property.
      * 
+     * <p>
+     * For example, to add a new item, do as follows:
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence maxOccurs="unbounded" minOccurs="0">
-     *         &lt;element ref="{http://vorobyev.masterjava.ru}Group"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     *    getGroupRefs().add(newItem);
      * </pre>
      * 
      * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Object }
+     * 
+     * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "group"
-    })
-    public static class Groups {
-
-        @XmlElement(name = "Group", namespace = "http://vorobyev.masterjava.ru")
-        protected List<Group> group;
-
-        /**
-         * Gets the value of the group property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the group property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getGroup().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link Group }
-         * 
-         * 
-         */
-        public List<Group> getGroup() {
-            if (group == null) {
-                group = new ArrayList<Group>();
-            }
-            return this.group;
+    public List<Object> getGroupRefs() {
+        if (groupRefs == null) {
+            groupRefs = new ArrayList<Object>();
         }
-
+        return this.groupRefs;
     }
 
 }

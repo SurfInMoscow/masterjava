@@ -3,10 +3,13 @@ package ru.javaops.masterjava.xml.schema;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**
@@ -18,10 +21,8 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="type" type="{http://vorobyev.masterjava.ru}groupType"/>
- *       &lt;/sequence>
+ *       &lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}ID" />
+ *       &lt;attribute name="type" use="required" type="{http://vorobyev.masterjava.ru}groupType" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -30,17 +31,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "name",
-    "type"
-})
+@XmlType(name = "")
 @XmlRootElement(name = "Group", namespace = "http://vorobyev.masterjava.ru")
 public class Group {
 
-    @XmlElement(namespace = "http://vorobyev.masterjava.ru", required = true)
+    @XmlAttribute(name = "name", required = true)
+    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
+    @XmlID
+    @XmlSchemaType(name = "ID")
     protected String name;
-    @XmlElement(namespace = "http://vorobyev.masterjava.ru", required = true)
-    @XmlSchemaType(name = "string")
+    @XmlAttribute(name = "type", required = true)
     protected GroupType type;
 
     /**
