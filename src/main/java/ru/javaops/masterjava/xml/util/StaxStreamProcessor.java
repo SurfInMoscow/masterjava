@@ -31,12 +31,31 @@ public class StaxStreamProcessor implements AutoCloseable {
         return false;
     }
 
+    public String doUntilAny(int stopEvent, String... values) throws XMLStreamException {
+        while (reader.hasNext()) {
+            int event = reader.next();
+            if (event == stopEvent) {
+                String xmlValue = getValue(event);
+                for (String value : values) {
+                    if (value.equals(xmlValue)) {
+                        return xmlValue;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public String getValue(int event) throws XMLStreamException {
         return (event == XMLEvent.CHARACTERS) ? reader.getText() : reader.getLocalName();
     }
 
     public String getElementValue(String element) throws XMLStreamException {
         return doUntil(XMLEvent.START_ELEMENT, element) ? reader.getElementText() : null;
+    }
+
+    public String getAttribute(String name) throws XMLStreamException {
+        return reader.getAttributeValue(null, name);
     }
 
     public String getText() throws XMLStreamException {
