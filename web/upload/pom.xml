@@ -7,7 +7,7 @@
     <parent>
         <groupId>ru.javaops</groupId>
         <artifactId>webparent</artifactId>
-        <relativePath>../webparent/pom.xml</relativePath>
+        <relativePath>../../webparent/pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

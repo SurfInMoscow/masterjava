@@ -28,7 +28,7 @@ public class RootWebController {
         return "index";
     }
 
-    @PostMapping("/index")
+    @PostMapping("/")
     public String setUploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) throws IOException, JAXBException {
         File uploadedFile = new File("/Users/vorobyev/Documents/projects/masterjava/tmp/" + file.getOriginalFilename());
         try (OutputStream out = new FileOutputStream(uploadedFile);

@@ -7,7 +7,7 @@
     <parent>
         <groupId>ru.javaops</groupId>
         <artifactId>webparent</artifactId>
-        <relativePath>../webparent/pom.xml</relativePath>
+        <relativePath>../../webparent/pom.xml</relativePath>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
@@ -18,8 +18,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>ru.javaops</groupId>
-            <artifactId>mail-api</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>common</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
