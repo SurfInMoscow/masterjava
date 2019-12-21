@@ -29,4 +29,13 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>ru.javaops</groupId>
+            <artifactId>common-web</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
 </project>

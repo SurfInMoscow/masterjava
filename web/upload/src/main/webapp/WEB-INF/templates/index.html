@@ -1,10 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Title</title>
+    <title>Upload File</title>
 </head>
 <body>
-
+<h2>File upload Thymeleaf</h2>
+<br>
+<form method="POST" enctype="multipart/form-data" action="">
+    File to upload: <input type="file" name="file"><br/>
+    <br/>
+    <input type="submit" value="Press">
+</form>
 </body>
 </html>
