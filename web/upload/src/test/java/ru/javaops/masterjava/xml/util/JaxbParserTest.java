@@ -19,21 +19,21 @@ public class JaxbParserTest {
     @Test
     public void testPayload() throws Exception {
 //        JaxbParserTest.class.getResourceAsStream("/city.xml")
-        Payload payload = JAXB_PARSER.unmarshal(
+        Payload payload = JAXB_PARSER.createUnmarshaller().unmarshal(
                 Resources.getResource("payload.xml").openStream());
-        String strPayload = JAXB_PARSER.marshal(payload);
+        String strPayload = JAXB_PARSER.createMarshaller().marshal(payload);
         JAXB_PARSER.validate(strPayload);
         System.out.println(strPayload);
     }
 
     @Test
     public void testCity() throws Exception {
-        JAXBElement<CityType> cityElement = JAXB_PARSER.unmarshal(
+        JAXBElement<CityType> cityElement = JAXB_PARSER.createUnmarshaller().unmarshal(
                 Resources.getResource("city.xml").openStream());
         CityType city = cityElement.getValue();
         JAXBElement<CityType> cityElement2 =
                 new JAXBElement<>(new QName("http://vorobyev.masterjava.ru", "City"), CityType.class, city);
-        String strCity = JAXB_PARSER.marshal(cityElement2);
+        String strCity = JAXB_PARSER.createMarshaller().marshal(cityElement2);
         JAXB_PARSER.validate(strCity);
         System.out.println(strCity);
     }

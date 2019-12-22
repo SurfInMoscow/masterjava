@@ -22,6 +22,6 @@ public class PayloadController {
     }
 
     public Payload getPayload(File file) throws IOException, JAXBException {
-        return JAXB_PARSER.unmarshal(Files.newInputStream(file.toPath(), StandardOpenOption.READ));
+        return JAXB_PARSER.createUnmarshaller().unmarshal(Files.newInputStream(file.toPath(), StandardOpenOption.READ));
     }
 }

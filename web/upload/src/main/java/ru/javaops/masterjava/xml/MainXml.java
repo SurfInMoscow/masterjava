@@ -21,8 +21,8 @@ public class MainXml {
     public static List<User> usersInProject(String projectName) throws IOException, JAXBException {
         JaxbParser JAXB_PARSER = new JaxbParser(ObjectFactory.class);
         JAXB_PARSER.setSchema(Schemas.ofClasspath("payload.xsd"));
-        Payload payload = JAXB_PARSER.unmarshal(
-                Resources.getResource("payload.xml").openStream());
+        JAXB_PARSER.createUnmarshaller().unmarshal(Resources.getResource("payload.xml").openStream());
+        Payload payload = JAXB_PARSER.createUnmarshaller().unmarshal(Resources.getResource("payload.xml").openStream());
         List<User> users = payload.getUsers().getUser();
         Project project = payload.getProjects().getProject().stream().filter(p -> p.getName().equals(projectName)).findAny().get();
         Set<Group> groups = new HashSet<>(project.getGroup());
